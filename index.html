@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="pt">
+
+  <head>
+    <title>Connect 4</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Connect Four with Minimax">
+    <meta name="author" content="Pedro Unas & Solange Sampaio">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://raw.githubusercontent.com/pedrounas/connectfour.github.io/master/circle-xxl.png">
+    <script src="test.js"></script>
+  </head>
+
+  <body>
+
+    <div id="Page0">
+
+      <div>
+        <img alt="header" src="https://raw.githubusercontent.com/pedrounas/connectfour.github.io/support/Untitled-1.png">
+      </div>
+
+      <div class="login">
+        <form id="login" action="#" onsubmit="return show('Page1','Page0');">
+          <h1>Insira os seus dados</h1>
+          <br>
+          <p>Nome de Utilizador:</p>
+          <input type="text" name="username">
+          <br><br>
+          <p>Palavra Passe:</p>
+          <input type="password" name="pwd">
+          <br><br><br>
+          <input type="submit" value="Login">
+          <br>
+        </form>
+      </div>
+    </div>
+
+    <div id="Page1" style="display:none">
+      <div>
+        <img alt="header" src="https://raw.githubusercontent.com/pedrounas/connectfour.github.io/support/Untitled-1.png">
+      </div>
+      <div class="all">
+        <div class="turn" id="turn">
+          <p id="showturn">Esperando pelo começo do jogo!</p>
+
+          <p><button onclick="return show('Page2','Page1');">Classificações</button></p>
+          <p><button onclick="return show('Page3','Page1');">Instruções</button></p>
+          <br>
+          <p><button class="quit" onclick="quit();" type="submit">Desistir</button></p>
+        </div>
+        <div class="container" id="container">
+          <div id="board"></div>
+        </div>
+        <div class="menu">
+
+          <p class="option">Tamanho do Tabuleiro</p>
+          <p>
+
+            <select id="height" autocomplete="off">
+              <option value="4">4 linhas</option>
+              <option value="5">5 linhas</option>
+              <option value="6" selected="selected">6 linhas</option>
+              <option value="7">7 linhas</option>
+              <option value="8">8 linhas</option>
+              <option value="9">9 linhas</option>
+            </select>
+
+            <select id="width" autocomplete="off">
+              <option value="5">5 colunas</option>
+              <option value="6">6 colunas</option>
+              <option value="7" selected="selected">7 colunas</option>
+              <option value="8">8 colunas</option>
+              <option value="9">9 colunas</option>
+              <option value="10">10 colunas</option>
+            </select>
+          </p>
+
+          <p class="option">Dificuldade</p>
+          <p>
+            <select id="difficulty" autocomplete="off">
+              <option value="2">Fácil</option>
+              <option value="4" selected="selected">Médio</option>
+              <option value="6">Dificil</option>
+              <option value="8">Muito Dificil</option>
+            </select>
+          </p>
+
+          <p class="option">Quem joga primeiro?</p>
+          <p>
+            <select id="starter" autocomplete="off">
+              <option value="0">Jogador</option>
+              <option value="1">Computador</option>
+            </select>
+          </p>
+
+          <p><button class="save" onclick="restartGame();" type="submit">Definir Jogo</button></p>
+
+          <br>
+
+        </div>
+      </div>
+      <p>
+        <a href="http://jigsaw.w3.org/css-validator/check/referer">
+          <img style="border:0;width:88px;height:31px" src="http://jigsaw.w3.org/css-validator/images/vcss" alt="CSS válido!" />
+        </a>
+      </p>
+    </div>
+
+    <div id="Page2" style="display:none">
+      <div>
+        <img alt="header" src="https://raw.githubusercontent.com/pedrounas/connectfour.github.io/support/Untitled-1.png">
+      </div>
+      <div id="table">
+        <table id="test">
+          <tr>
+            <th>Nome de Utilizador</th>
+            <th>Número de jogos</th>
+            <th>Número de vitórias</th>
+            <th>Percentagem de vitórias</th>
+          </tr>
+          <tr>
+            <td>Jogador</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0%</td>
+          <tr>
+            <td>Computador</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0%</td>
+        </table>
+      </div>
+
+      <div class="switch">
+        <p><button onclick="return show('Page1','Page2');">Voltar</button></p>
+      </div>
+    </div>
+
+    <div id="Page3" style="display:none">
+
+      <div>
+        <img alt="header" src="https://raw.githubusercontent.com/pedrounas/connectfour.github.io/support/Untitled-1.png">
+      </div>
+      <div class="login">
+        <h1>Instruções</h1>
+        <p>O objetivo do Connect Four é colocar peças até o formar uma linha com 4 peças em qualquer direção, vertical horizontal ou diagonal. Ganha quem formar primeiro uma linha de 4 peças.</p>
+
+        <p>O jogo é jogado em turns, sendo que pode ser jogado contra outra pessoa ou contra um computador. Para colocar a sua peça basta clicar na coluna em que pretende jogar.</p>
+      </div>
+      <div class="switch">
+        <p><button onclick="return show('Page1','Page3');">Voltar</button></p>
+      </div>
+
+    </div>
+
+    <div id="Page4" style="display: none">
+      <div class="printwinner">
+        <span id='close1' onclick='hide("Page4")'>X</span>
+        <h1>O computador ganhou!</h1>
+      </div>
+    </div>
+
+    <div id="Page5" style="display: none">
+      <div class="printwinner">
+        <span id='close2' onclick='hide("Page5")'>X</span>
+        <h1>O jogador ganhou!</h1>
+      </div>
+    </div>
+
+    <div id="Page6" style="display: none">
+      <div class="printwinner">
+        <span id='close' onclick='hide("Page6")'>X</span>
+        <h1>O jogo acabaou num empate</h1>
+      </div>
+    </div>
+
+
+
+  </body>
+
+</html>
